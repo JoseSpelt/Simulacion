@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación y Toma de Decisiones</title>
+    <!-- Importar la fuente 'Poppins' desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #18bc9c;
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/img/iStock-1331297790-scaled.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            letter-spacing: 1.2px;
+            color: #ff5722; /* Color cambiado a naranja vibrante */
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* Eliminado el estilo del botón .cta-button */
+
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: #18bc9c;
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+        }
+
+        /* Estilos para la lista en la sección Fundamentos */
+        .section ul {
+            list-style: disc;
+            padding-left: 40px; /* Ajuste de padding para alinear correctamente */
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .section img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: calc(33.333% - 20px); /* 3 tarjetas por fila con espacio */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            color: #18bc9c;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            flex-grow: 1;
+        }
+
+        .info-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #18bc9c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-button:hover {
+            background-color: #149d83;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 992px) {
+            .card {
+                width: calc(50% - 15px); /* 2 tarjetas por fila */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+
+            .card {
+                width: 100%; /* 1 tarjeta por fila */
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#fundamentos">Fundamentos</a></li>
+                <li><a href="#casos-exito">Casos de Éxito</a></li>
+            </ul>
+        </nav>
+        <h1>Simulación: Fundamentos y Casos de Éxito</h1>
+    </header>
+
+    <!-- Sección Hero -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h2>Simulación y Toma de Decisiones</h2>
+            <p>Exploramos los fundamentos de la simulación y su aplicación en la optimización de procesos.</p>
+            <!-- Botón eliminado -->
+        </div>
+    </section>
+
+    <!-- Sección Fundamentos -->
+    <section id="fundamentos" class="section">
+        <h2>Fundamentos Teóricos y Metodológicos</h2>
+        <p>La simulación es una técnica que permite crear modelos de sistemas reales para estudiar su comportamiento. Este enfoque es clave en la <strong>investigación de operaciones</strong>, proporcionando herramientas para la toma de decisiones en la optimización de procesos.</p>
+        <ul>
+            <li>Modelado de sistemas complejos y dinámicos.</li>
+            <li>Análisis y experimentación con diferentes escenarios.</li>
+            <li>Optimización de procesos y mejora en la toma de decisiones.</li>
+        </ul>
+    </section>
+
+    <!-- Sección Casos de Éxito -->
+    <section id="casos-exito" class="section">
+        <h2>Casos de Éxito en Simulación</h2>
+        <div class="card-container">
+            <!-- Caso 1 -->
+            <div class="card">
+                <img src="img/simulacion-en-cirugia-scaled.jpg" alt="Simulación Quirúrgica">
+                <h3>Simulación Quirúrgica</h3>
+                <p>Plataforma de simulación quirúrgica que permite la formación práctica en técnicas médicas avanzadas.</p>
+                <a href="https://www.elsevier.es/es-revista-cirugia-espanola-36-articulo-la-simulacion-como-modelo-ensenanza-S0009739X17302087" class="info-button">Más información</a>
+            </div>
+            <!-- Caso 2 -->
+            <div class="card">
+                <img src="/img/maxresdefault.jpg" alt="Simulación en Cirugía Laparoscópica">
+                <h3>Simulación en Cirugía Laparoscópica</h3>
+                <p>Simulación que optimiza las habilidades quirúrgicas mediante prácticas controladas.</p>
+                <a href="https://www.elsevier.es/es-revista-cirugia-espanola-36-articulo-simulacion-cirugia-laparoscopica-S0009739X14001122#:~:text=La%20simulaci%C3%B3n%20surge%20como%20una,comprometer%20la%20seguridad%20del%20paciente." class="info-button">Más información</a>
+            </div>
+            <!-- Caso 3 -->
+            <div class="card">
+                <img src="/img/simulacion-cirugia-catarata-paginaweb.jpg" alt="Simulador de Cataratas">
+                <h3>Simulador de Cataratas</h3>
+                <p>Entrenamiento en cirugía de cataratas que mejora la experiencia médica mediante retroalimentación táctil en tiempo real.</p>
+                <a href="https://oftalmologos.org.ar/educacion/simulador-de-cirugia-de-cataratas" class="info-button">Más información</a>
+            </div>
+            <!-- Caso 4 -->
+            <div class="card">
+                <img src="img/spi-627x381.png" alt="Simulación de Procesos Industriales">
+                <h3>Simulación de Procesos Industriales</h3>
+                <p>Optimización de cadenas de producción mediante modelos de simulación avanzados.</p>
+                <a href="https://www.cursosaula21.com/que-es-la-simulacion-de-procesos-industriales/" class="info-button">Más información</a>
+            </div>
+            <!-- Caso 5 -->
+            <div class="card">
+                <img src="img/unnamed.png" alt="Simulación de Tráfico">
+                <h3>Simulación de Tráfico</h3>
+                <p>Análisis y mejora de la infraestructura vial mediante simulaciones detalladas de flujo vehicular.</p>
+                <a href="https://www.ptvgroup.com/es/areas-de-aplicacion/simulacion-del-trafico" class="info-button">Más información</a>
+            </div>
+            <!-- Caso 6 -->
+            <div class="card">
+                <img src="/img/images.jpg" alt="Simulación Financiera">
+                <h3>Simulación Financiera</h3>
+                <p>Modelos de simulación para prever comportamientos financieros y tomar decisiones estratégicas.</p>
+                <a href="https://www.asesoresquanta.com/simulacin-financiera" class="info-button">Más información</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2024 Simulación y Toma de Decisiones. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
